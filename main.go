@@ -5,8 +5,8 @@ import (
 	dataPopulation "root/Gen"
 	pop "root/Population"
 	"sync"
+	mth "root/Methods"
 )
-
 
 
 func asyncLoop(arr1, arr2, arr3 []dataPopulation.DTO) {
@@ -22,15 +22,6 @@ func asyncLoop(arr1, arr2, arr3 []dataPopulation.DTO) {
 	for i := 0; i < len(arr1); i++ {
 		go func(i int) {
 			defer wg.Done()
-
-			// if arr1[i] == arr2[i] && arr1[i] == arr3[i] {
-			// 	fmt.Println("Ошибка: элементы равны во всех массивах")
-			// 	errorOccurred = true
-			// } else if arr1[i] == arr2[i] {
-			// 	fmt.Println("Ошибка: элементы равны в arr1 и arr2")
-			// 	errorOccurred = true
-			// } 
-
 			switch {
 				case arr1[i] == arr2[i] && 
 					 arr1[i] == arr3[i] &&
@@ -39,21 +30,23 @@ func asyncLoop(arr1, arr2, arr3 []dataPopulation.DTO) {
 					 fmt.Println("Ошибка: элементы равны во всех массивах")
 					 errorOccurred = true
 
-				case arr1[i] == arr2[i]: 
-					fmt.Println("Ошибка: элементы равны в arr1 и arr2")
+				case arr1[0] == arr2[0] || arr1[0] == arr3[0] ||
+					 arr2[0] == arr1[0] || arr2[0] == arr3[0] || 
+					 arr3[0] == arr1[0] || arr3[0] == arr2[0]:
+					fmt.Println("Ошибка: элементы равны на 0ом индекси среди каких либо массивов")
 					errorOccurred = true
 
-				case arr1[i] == arr3[i]: 
-					fmt.Println("Ошибка: элементы равны в arr1 и arr3")
-					errorOccurred = true
+				case arr1[1] == arr2[1] || arr1[1] == arr3[1] ||
+					 arr2[1] == arr1[1] || arr2[1] == arr3[1] || 
+					 arr3[1] == arr1[1] || arr3[1] == arr2[1]:
+				   fmt.Println("Ошибка: элементы равны на 1ом индекси среди каких либо массивов")
+				   errorOccurred = true
 
-				case arr2[i] == arr1[i]: 
-					fmt.Println("Ошибка: элементы равны в arr2 и arr1")
-					errorOccurred = true
-
-				case arr2[i] == arr3[i]: 
-					fmt.Println("Ошибка: элементы равны в arr2 и arr3")
-					errorOccurred = true
+				case arr1[2] == arr2[2] || arr1[2] == arr3[2] ||
+				     arr2[2] == arr1[2] || arr2[2] == arr3[2] || 
+				     arr3[2] == arr1[2] || arr3[2] == arr2[2]:
+				  fmt.Println("Ошибка: элементы равны на 2ом индекси среди каких либо массивов")
+				  errorOccurred = true
 			}
 		}(i)
 	}
@@ -71,22 +64,28 @@ func asyncLoop(arr1, arr2, arr3 []dataPopulation.DTO) {
 	
 }
 
+
+
 func main() {
-	arr1 := []dataPopulation.DTO{} //группа 1вб1
-	arr2:= []dataPopulation.DTO{} //группа 1вб2
-	arr3 := []dataPopulation.DTO{} //группа 1вб3
+	arr1 := []dataPopulation.DTO{} // группа 1вб1
+	arr2 := []dataPopulation.DTO{} // группа 1вб2
+	arr3 := []dataPopulation.DTO{} // группа 1вб3
 	var wg sync.WaitGroup
 
 	wg.Add(1)
-	go pop.AddRandomElementsAsync(&arr1, &arr2, &arr3, &wg)
+	go pop.AddRandomElementsAsync(&arr1, &arr2, &arr3, &wg) // генерация начальной популяции
 	wg.Wait()
-	
 
-	for i:= 0; i <= 1000 ; i++ {
-		
-		asyncLoop(arr1, arr2, arr3)
-		
-	}
-	
+	// Ранжирование массивов
+	mth.RankingMethod(&arr1)
+	mth.RankingMethod(&arr2)
+	mth.RankingMethod(&arr3)
 
+	// Вывод отранжированных массивов
+	render := 1000
+    for i := 0; i < render; i++ {
+		fmt.Print("Вызов ", i, "\n")
+        asyncLoop(arr1, arr2, arr3)
+    }
 }
+

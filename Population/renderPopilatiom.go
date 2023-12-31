@@ -1,11 +1,10 @@
 package population
 
 import (
-
 	"math/rand"
+	dataPopulation "root/Gen"
 	"sync"
 	"time"
-	dataPopulation "root/Gen"
 )
 
 var all = []dataPopulation.DTO{
@@ -36,7 +35,7 @@ func AddRandomElementsAsync(arr1, arr2, arr3 *[]dataPopulation.DTO, wg *sync.Wai
 
 	mu := sync.Mutex{}
 	rand.Seed(time.Now().UnixNano())
-
+	
 	for i := 0; i < 3; i++ {
 		wg.Add(3)
 
