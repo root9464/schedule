@@ -5,7 +5,7 @@ import (
 	dataPopulation "root/Gen"
 	pop "root/Population"
 	"sync"
-	mth "root/Methods"
+	method "root/Methods"
 )
 
 
@@ -77,15 +77,12 @@ func main() {
 	wg.Wait()
 
 	// Ранжирование массивов
-	mth.RankingMethod(&arr1)
-	mth.RankingMethod(&arr2)
-	mth.RankingMethod(&arr3)
+	method.RankingMethod(&arr1)
+	method.RankingMethod(&arr2)
+	method.RankingMethod(&arr3)
 
 	// Вывод отранжированных массивов
-	render := 1000
-    for i := 0; i < render; i++ {
-		fmt.Print("Вызов ", i, "\n")
-        asyncLoop(arr1, arr2, arr3)
-    }
+
+	asyncLoop(arr1, arr2, arr3)
 }
 
