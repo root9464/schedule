@@ -4,7 +4,6 @@ type DTO struct {
 	Teacher
 	Subject string
 	Hour    int16
-	Quality float64
 }
 type Teacher struct{
 	Name string
@@ -19,7 +18,7 @@ var Teachers = []string{
 	"Швиндина Н.А", "Зернова Е.А", "Имаев М.А", "Нургалиева И.Ю",
 	"Чебрукова Т.А", "Новиков Р.Е", "Чернышова Е.А", "Силищева О.И",
 	"Новикова М.Н"}
-var Data = struct{
+var Data = struct{ //
 	Math, Rus, Inf, Fiz, Hist, Lit, Mdk, Arch, Soc, Obg, Fizr, Angl, UIPD, Geo DTO
 }{
 	Math: DTO{
