@@ -17,7 +17,7 @@ func main() {
 
 	wg.Add(1)
 	go pop.AddRandomElementsAsync(&arr1, &arr2, &arr3, &wg)
-    wg.Wait()
+	wg.Wait()
 
 	methods.SelectArraysSync(arr1, arr2, arr3)
 

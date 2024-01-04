@@ -16,6 +16,7 @@ import (
 // Кроссоверы
 // !(требуется глобальная доработка)
 
+
 func KPointCrossover(parent1, parent2, parent3 []dataPopulation.DTO, k int) ([]dataPopulation.DTO, []dataPopulation.DTO, []dataPopulation.DTO) {
 	child1 := make([]dataPopulation.DTO, len(parent1))
 	child2 := make([]dataPopulation.DTO, len(parent2))
