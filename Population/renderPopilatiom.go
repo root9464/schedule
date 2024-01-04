@@ -56,7 +56,6 @@ func AddRandomElementsAsync(arr1, arr2, arr3 *[]dataPopulation.DTO, wg *sync.Wai
 
 		go func() {
 			defer wg.Done()
-
 			mu.Lock()
 			*arr3 = append(*arr3, generateRandomNumber())
 			mu.Unlock()

@@ -1,9 +1,11 @@
 package methods
 
 import (
+	"fmt"
+	"math/rand"
 	dataPopulation "root/Gen"
+	"sort"
 	"sync"
-    "fmt"
 )
 
 /*
@@ -11,14 +13,40 @@ import (
    Задание| Реализовать метод ранжирования на основе создания популяции
 */
 
-// Метод наследования
+// Кроссоверы
 // !(требуется глобальная доработка)
 
-func crossover(parent1, parent2 []dataPopulation.DTO, crossoverPoint int) ([]dataPopulation.DTO, []dataPopulation.DTO) {
-    child1 := append(parent1[:crossoverPoint], parent2[crossoverPoint:]...)
-    child2 := append(parent2[:crossoverPoint], parent1[crossoverPoint:]...)
-    return child1, child2
+func KPointCrossover(parent1, parent2, parent3 []dataPopulation.DTO, k int) ([]dataPopulation.DTO, []dataPopulation.DTO, []dataPopulation.DTO) {
+	child1 := make([]dataPopulation.DTO, len(parent1))
+	child2 := make([]dataPopulation.DTO, len(parent2))
+	child3 := make([]dataPopulation.DTO, len(parent3))
+
+	
+	crossoverPoints := make([]int, k)
+	for i := 0; i < k; i++ {
+		crossoverPoints[i] = rand.Intn(len(parent1))
+	}
+
+	sort.Ints(crossoverPoints)
+
+	copy(child1, parent1)
+	copy(child2, parent2)
+	copy(child3, parent3)
+
+	for i := 0; i < len(crossoverPoints)-1; i++ {
+		start := crossoverPoints[i]
+		end := crossoverPoints[i+1]
+
+		for j := start; j < end; j++ {
+			child1[j] = parent2[j]
+			child2[j] = parent3[j]
+			child3[j] = parent1[j]
+		}
+	}
+
+	return child1, child2, child3
 }
+
 
 // Метод отбора 
 // !(требуется легкая доработка)
@@ -69,11 +97,13 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 
 	if !errorOccurred {
 		fmt.Println("ok")
-		child1, child2 := crossover(arr1, arr2, 3)
+		// arrays := crossover(arr1, arr2, names)
 		fmt.Println("Array 1:", arr1)
 		fmt.Println("Array 2:", arr2)
 		fmt.Println("Array 3:", arr3)	
-		fmt.Println("Array child1:", child1)
-		fmt.Println("Array child2:", child2)
+		// fmt.Println("Array child1:", arrays["arr1"])
+		// fmt.Println("Array child2:", arrays["arr2"])
+		// fmt.Println("Array child3:", arrays["arr3"])
+		// fmt.Println("Array child4:", arrays["arr4"])
 	}	
 }
