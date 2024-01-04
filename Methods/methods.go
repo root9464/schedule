@@ -41,8 +41,26 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 				errorOccurred = false
 				return
 			}
+			// Проверка на одинаковые элементы внутри каждого массива
+			for j := i + 1; j < len(arr1); j++ {
+				if arr1[i].Subject == arr1[j].Subject {
+					fmt.Printf("Ошибка: найдены одинаковые элементы в arr1 на индексах %d и %d\n", i, j)
+					errorOccurred = false
+					return
+				}
+				if arr2[i].Subject == arr2[j].Subject {
+					fmt.Printf("Ошибка: найдены одинаковые элементы в arr2 на индексах %d и %d\n", i, j)
+					errorOccurred = false
+					return
+				}
+				if arr3[i].Subject == arr3[j].Subject {
+					fmt.Printf("Ошибка: найдены одинаковые элементы в arr3 на индексах %d и %d\n", i, j)
+					errorOccurred = false
+					return
+				}
+			}	
 		}(i)
-	} //adsd
+	} 
 
 	wg.Wait()
 
@@ -56,3 +74,13 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 		fmt.Println("Array child2:", child2)
 	}
 }
+
+
+
+
+
+
+
+
+
+			
