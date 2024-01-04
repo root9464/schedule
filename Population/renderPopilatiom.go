@@ -4,7 +4,6 @@ import (
 	"math/rand"
 	dataPopulation "root/Gen"
 	"sync"
-
 )
 
 var all = []dataPopulation.DTO{
@@ -61,7 +60,7 @@ func AddRandomElementsAsync(arr1, arr2, arr3 *[]dataPopulation.DTO, wg *sync.Wai
 			*arr3 = append(*arr3, generateRandomNumber())
 			mu.Unlock()
 		}()
-	}
+	}	
 }
 
 // func Render () {
