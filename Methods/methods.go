@@ -84,6 +84,7 @@ func ThreePointCrossover(parent1, parent2, parent3 []dataPopulation.DTO) ([]data
 // Метод отбора 
 // !(требуется легкая доработка)
 
+
 func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 	var wg sync.WaitGroup
 	errorOccurred := true

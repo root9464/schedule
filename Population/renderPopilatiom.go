@@ -24,6 +24,7 @@ var all = []dataPopulation.DTO{
 }
 
 
+
 // generateRandomNumber генерирует случайный элемент из среза all.
 // Входной параметр all - срез элементов типа dataPopulation.DTO.
 // Возвращает случайный элемент типа dataPopulation.DTO.

@@ -40,6 +40,7 @@ func multiplecall(arr1, arr2, arr3 []dataPopulation.DTO, wg *sync.WaitGroup) {
         arr1 = []dataPopulation.DTO{}
         arr2 = []dataPopulation.DTO{}
         arr3 = []dataPopulation.DTO{}   
+        
         // count := i
         // fmt.Print(count, "\n")
     }
