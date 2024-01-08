@@ -14,7 +14,7 @@ import (
 */
 
 // Кроссоверы
-// !(требуется глобальная доработка)
+// !(требуется доработка)
 
 
 func KPointCrossover(parent1, parent2, parent3 []dataPopulation.DTO, k int) ([]dataPopulation.DTO, []dataPopulation.DTO, []dataPopulation.DTO) {
@@ -79,7 +79,17 @@ func ThreePointCrossover(parent1, parent2, parent3 []dataPopulation.DTO) ([]data
     return child1, child2, child3
 }
 
+//Метод мутации
+//Одноточечная мутация (Single-Point Mutation)
+/* func generateRandomNumber(array []dataPopulation.DTO) dataPopulation.DTO {
+	randomIndex := rand.Intn(len(array))
+	randomElement := array[randomIndex]
+	return randomElement
+} */
 
+// func SinglePointMutation(arr []dataPopulation.DTO) []dataPopulation.DTO {
+// 	newArray := generateRandomNumber(arr)
+// }
 
 // Метод отбора 
 // !(требуется легкая доработка)
@@ -124,6 +134,7 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 
 
 	if errorOccurred {
+		//! переделать чтобы оно присвало значение data.Group<num cours><name group><num group>
 		fmt.Println("ok")
 		fmt.Println("Родительские массивы:")
 		fmt.Println("Array 1:", arr1)
@@ -142,5 +153,5 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 		fmt.Println("Child 1:", child1_1)
 		fmt.Println("Child 2:", child2_1)
 		fmt.Println("Child 3:", child3_1)
-	}	
+	}
 }
