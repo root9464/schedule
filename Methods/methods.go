@@ -6,6 +6,7 @@ import (
 	dataPopulation "root/Gen"
 	"sort"
 	"sync"
+	modules "root/Core/modules"
 )
 
 /*
@@ -140,18 +141,20 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 		fmt.Println("Array 1:", arr1)
 		fmt.Println("Array 2:", arr2)
 		fmt.Println("Array 3:", arr3)
+		result := modules.PermutationsCount(arr1, arr2, arr3)
+		fmt.Println(result)
+		
+		// fmt.Println("Дочерние массивы:")
+		// child1, child2, child3 := KPointCrossover(arr1, arr2, arr3, 2)
+		// fmt.Println("K-точечный кроссовер:")
+		// fmt.Println("Child 1:", child1)
+		// fmt.Println("Child 2:", child2)
+		// fmt.Println("Child 3:", child3)
 
-		fmt.Println("Дочерние массивы:")
-		child1, child2, child3 := KPointCrossover(arr1, arr2, arr3, 2)
-		fmt.Println("K-точечный кроссовер:")
-		fmt.Println("Child 1:", child1)
-		fmt.Println("Child 2:", child2)
-		fmt.Println("Child 3:", child3)
-
-		child1_1, child2_1, child3_1 := ThreePointCrossover(arr1, arr2, arr3)
-		fmt.Println("Трёхточечный кроссовер:")
-		fmt.Println("Child 1:", child1_1)
-		fmt.Println("Child 2:", child2_1)
-		fmt.Println("Child 3:", child3_1)
+		// child1_1, child2_1, child3_1 := ThreePointCrossover(arr1, arr2, arr3)
+		// fmt.Println("Трёхточечный кроссовер:")
+		// fmt.Println("Child 1:", child1_1)
+		// fmt.Println("Child 2:", child2_1)
+		// fmt.Println("Child 3:", child3_1)
 	}
 }
