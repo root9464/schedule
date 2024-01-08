@@ -22,7 +22,6 @@ func KPointCrossover(parent1, parent2, parent3 []dataPopulation.DTO, k int) ([]d
 	child2 := make([]dataPopulation.DTO, len(parent2))
 	child3 := make([]dataPopulation.DTO, len(parent3))
 
-	
 	crossoverPoints := make([]int, k)
 	for i := 0; i < k; i++ {
 		crossoverPoints[i] = rand.Intn(len(parent1))
@@ -48,13 +47,46 @@ func KPointCrossover(parent1, parent2, parent3 []dataPopulation.DTO, k int) ([]d
 	return child1, child2, child3
 }
 
+func ThreePointCrossover(parent1, parent2, parent3 []dataPopulation.DTO) ([]dataPopulation.DTO, []dataPopulation.DTO, []dataPopulation.DTO) {
+    child1 := make([]dataPopulation.DTO, len(parent1))
+    child2 := make([]dataPopulation.DTO, len(parent2))
+    child3 := make([]dataPopulation.DTO, len(parent3))
+
+    crossoverPoint1 := rand.Intn(len(parent1))
+    crossoverPoint2 := rand.Intn(len(parent1))
+    crossoverPoint3 := rand.Intn(len(parent1))
+
+    // Сортируем точки пересечения в порядке возрастания
+    crossoverPoints := []int{crossoverPoint1, crossoverPoint2, crossoverPoint3}
+    sort.Ints(crossoverPoints)
+
+    copy(child1[:crossoverPoints[0]], parent1[:crossoverPoints[0]])
+    copy(child2[:crossoverPoints[0]], parent2[:crossoverPoints[0]])
+    copy(child3[:crossoverPoints[0]], parent3[:crossoverPoints[0]])
+
+    copy(child1[crossoverPoints[0]:crossoverPoints[1]], parent2[crossoverPoints[0]:crossoverPoints[1]])
+    copy(child2[crossoverPoints[0]:crossoverPoints[1]], parent1[crossoverPoints[0]:crossoverPoints[1]])
+    copy(child3[crossoverPoints[0]:crossoverPoints[1]], parent3[crossoverPoints[0]:crossoverPoints[1]])
+
+    copy(child1[crossoverPoints[1]:crossoverPoints[2]], parent3[crossoverPoints[1]:crossoverPoints[2]])
+    copy(child2[crossoverPoints[1]:crossoverPoints[2]], parent2[crossoverPoints[1]:crossoverPoints[2]])
+    copy(child3[crossoverPoints[1]:crossoverPoints[2]], parent1[crossoverPoints[1]:crossoverPoints[2]])
+
+    copy(child1[crossoverPoints[2]:], parent1[crossoverPoints[2]:])
+    copy(child2[crossoverPoints[2]:], parent2[crossoverPoints[2]:])
+    copy(child3[crossoverPoints[2]:], parent3[crossoverPoints[2]:])
+
+    return child1, child2, child3
+}
+
+
 
 // Метод отбора 
 // !(требуется легкая доработка)
 
 func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 	var wg sync.WaitGroup
-	errorOccurred := false
+	errorOccurred := true
 
 	if len(arr1) != len(arr2) || len(arr1) != len(arr3) {
 		fmt.Println("Длины массивов не совпадают")
@@ -65,46 +97,49 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 	for i := 0; i < len(arr1); i++ {
 		go func(i int) {
 			defer wg.Done()
-			switch {
-				case arr1[i] == arr2[i] && 
-					 arr1[i] == arr3[i] &&
-					 arr2[i] == arr1[i]	&&
-					 arr2[i] == arr3[i]: 
-					 fmt.Println("Ошибка: элементы равны во всех массивах")
-					 errorOccurred = true
-
-				case arr1[0] == arr2[0] || arr1[0] == arr3[0] ||
-					 arr2[0] == arr1[0] || arr2[0] == arr3[0] || 
-					 arr3[0] == arr1[0] || arr3[0] == arr2[0]:
-					fmt.Println("Ошибка: элементы равны на 0ом индекси среди каких либо массивов")
-					errorOccurred = true
-
-				case arr1[1] == arr2[1] || arr1[1] == arr3[1] ||
-					 arr2[1] == arr1[1] || arr2[1] == arr3[1] || 
-					 arr3[1] == arr1[1] || arr3[1] == arr2[1]:
-				   fmt.Println("Ошибка: элементы равны на 1ом индекси среди каких либо массивов")
-				   errorOccurred = true
-
-				case arr1[2] == arr2[2] || arr1[2] == arr3[2] ||
-				     arr2[2] == arr1[2] || arr2[2] == arr3[2] || 
-				     arr3[2] == arr1[2] || arr3[2] == arr2[2]:
-				  fmt.Println("Ошибка: элементы равны на 2ом индекси среди каких либо массивов")
-				  errorOccurred = true
+			if arr1[i].Subject == arr2[i].Subject || arr1[i].Subject == arr3[i].Subject || arr2[i].Subject == arr3[i].Subject {
+				errorOccurred = false
+				return
 			}
+			// Проверка на одинаковые элементы внутри каждого массива
+			for j := i + 1; j < len(arr1); j++ {
+				// sort.Slice(arr1, func(i, j int) bool { return arr1[i].Subject < arr1[j].Subject })
+				switch {
+					case arr1[i].Subject == arr1[j].Subject:
+						errorOccurred = false
+						return
+					case arr2[i].Subject == arr2[j].Subject:
+						errorOccurred = false
+						return
+					case arr3[i].Subject == arr3[j].Subject:
+						errorOccurred = false
+						return
+				}
+			}	
 		}(i)
-	}
-
+	} 
+	
 	wg.Wait()
 
-	if !errorOccurred {
+
+	if errorOccurred {
 		fmt.Println("ok")
-		// arrays := crossover(arr1, arr2, names)
+		fmt.Println("Родительские массивы:")
 		fmt.Println("Array 1:", arr1)
 		fmt.Println("Array 2:", arr2)
-		fmt.Println("Array 3:", arr3)	
-		// fmt.Println("Array child1:", arrays["arr1"])
-		// fmt.Println("Array child2:", arrays["arr2"])
-		// fmt.Println("Array child3:", arrays["arr3"])
-		// fmt.Println("Array child4:", arrays["arr4"])
+		fmt.Println("Array 3:", arr3)
+
+		fmt.Println("Дочерние массивы:")
+		child1, child2, child3 := KPointCrossover(arr1, arr2, arr3, 2)
+		fmt.Println("K-точечный кроссовер:")
+		fmt.Println("Child 1:", child1)
+		fmt.Println("Child 2:", child2)
+		fmt.Println("Child 3:", child3)
+
+		child1_1, child2_1, child3_1 := ThreePointCrossover(arr1, arr2, arr3)
+		fmt.Println("Трёхточечный кроссовер:")
+		fmt.Println("Child 1:", child1_1)
+		fmt.Println("Child 2:", child2_1)
+		fmt.Println("Child 3:", child3_1)
 	}	
 }
