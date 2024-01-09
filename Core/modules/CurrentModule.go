@@ -5,13 +5,6 @@ import (
 	"sort"
 )
 
-func factorial(n int) int {
-	if n <= 1 {
-		return 1
-	}
-	return n * factorial(n-1)
-}
-
 func PermutationsCount(arr1, arr2, arr3 []dataPopulation.DTO) int {
 	count := 0
 

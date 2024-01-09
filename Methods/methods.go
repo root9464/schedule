@@ -3,13 +3,9 @@ package methods
 import (
 	"fmt"
 	"math/rand"
-	data "root/Core/data"
-	modules "root/Core/modules"
 	dataPopulation "root/Gen"
 	"sort"
-	pop "root/Population"
 	"sync"
-
 )
 
 /*
@@ -99,7 +95,7 @@ func ThreePointCrossover(parent1, parent2, parent3 []dataPopulation.DTO) ([]data
 // !(требуется легкая доработка)
 
 
-func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
+func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO, args ...*[]dataPopulation.DTO) {
 	var wg sync.WaitGroup
 	errorOccurred := true
 
@@ -136,19 +132,10 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 	
 	wg.Wait()
 	
-	if errorOccurred {
+	if errorOccurred && len(args) >= 3{
 		fmt.Println("Status: 'ok' ")
-		data.Group1wb1 = arr1
-		data.Group1wb2 = arr2
-		data.Group1wb3 = arr3
-		result := modules.PermutationsCount(arr1, arr2, arr3)
-		if result == 6 {
-
-			wg.Add(1)
-			go pop.AddRandomElementsAsyncIndex(&data.Group2wb1, &data.Group2wb2, &data.Group2wb3, 0,  &wg)
-			wg.Wait()
-			
-		}
-
+		*args[0] = arr1
+		*args[1] = arr2
+		*args[2] = arr3
 	}
 }
