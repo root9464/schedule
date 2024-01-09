@@ -41,6 +41,20 @@ func maxlen(arrays ...[]dataPopulation.DTO) int {
 
 }
 
+func minlen(arrays ...[]dataPopulation.DTO) int {
+	if len(arrays) == 0 {
+		return 0
+	}
+
+	minLength := len(arrays[0])
+	for _, arr := range arrays {
+		if len(arr) < minLength {
+			minLength = len(arr)
+		}
+	}
+
+	return minLength
+}
 func CompareArrays(arrays ...[]dataPopulation.DTO) (<-chan error, bool) {
 	errCh := make(chan error)
 	flag := false
@@ -49,26 +63,10 @@ func CompareArrays(arrays ...[]dataPopulation.DTO) (<-chan error, bool) {
 
 		// Находим массив с максимальной длиной
 		maxLength := maxlen(arrays...)
-		
+		minLength := minlen(arrays...)
+		fmt.Println("Максимальная длина", maxLength)
 
-		// Сравниваем элементы на одинаковых индексах
-		for i := 0; i < maxLength; i++ {
-			for j := 1; j < len(arrays); j++ {
-				if i < len(arrays[j]) && arrays[0][i] == arrays[j][i] {
-					errCh <- errors.New("ошибка: элементы на одинаковых индексах совпадают")
-					flag = false
-					return
-				}else{
-					flag = true
-				}
-				// if i != j && len(arrays[i]) > 0 && len(arrays[j]) > 1 && arrays[i][0] == arrays[j][1] {
-				// 	errCh <- errors.New("ошибка: элемент на первом индексе совпадает с элементом на втором индексе другого массива")
-				// 	return
-				// }
-
-				
-			}
-		}
+		// условие проверки и готово
 	}()
 
 

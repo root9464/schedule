@@ -1,6 +1,7 @@
 package population
 
 import (
+	//"fmt"
 	"math/rand"
 	dataPopulation "root/Gen"
 	"sync"
@@ -94,17 +95,16 @@ func AddRandomElementsAsyncIndex(arr1, arr2, arr3 *[]dataPopulation.DTO, index i
 	defer wg.Done()
 
 	mu := sync.Mutex{}
-
-	*arr1 = append((*arr1)[:index], dataPopulation.DTO{}) // Добавляем элемент в 0ой индекс arr1
-	*arr2 = append((*arr2)[:index], dataPopulation.DTO{}) // Добавляем элемент в 0ой индекс arr2
-	*arr3 = append((*arr3)[:index], dataPopulation.DTO{}) // Добавляем элемент в 0ой индекс arr3
+	*arr1 = make([]dataPopulation.DTO, index) // Добавляем элемент в 0ой индекс arr1
+	*arr2 = make([]dataPopulation.DTO, index) // Добавляем элемент в 0ой индекс arr2
+	*arr3 = make([]dataPopulation.DTO, index) // Добавляем элемент в 0ой индекс arr3
 
 	for i := 0; i < 3; i++ {
 		wg.Add(3)
 
 		go func() {
 			defer wg.Done()
-
+			
 			randomElement1, randomElement2 := getRandomElements(all)
 			higherHourElement := getHigherHourElement(randomElement1, randomElement2)
 

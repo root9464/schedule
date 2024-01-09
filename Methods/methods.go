@@ -132,7 +132,7 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO, args ...*[]dataPopu
 	
 	wg.Wait()
 	
-	if errorOccurred && len(args) >= 3{
+	if errorOccurred && len(args) == 3{
 		fmt.Println("Status: 'ok' ")
 		*args[0] = arr1
 		*args[1] = arr2
