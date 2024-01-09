@@ -90,6 +90,53 @@ func AddRandomElementsAsync(arr1, arr2, arr3 *[]dataPopulation.DTO, wg *sync.Wai
 	}
 }
 
+func AddRandomElementsAsyncIndex(arr1, arr2, arr3 *[]dataPopulation.DTO, index int ,wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	mu := sync.Mutex{}
+
+	*arr1 = append((*arr1)[:index], dataPopulation.DTO{}) // Добавляем элемент в 0ой индекс arr1
+	*arr2 = append((*arr2)[:index], dataPopulation.DTO{}) // Добавляем элемент в 0ой индекс arr2
+	*arr3 = append((*arr3)[:index], dataPopulation.DTO{}) // Добавляем элемент в 0ой индекс arr3
+
+	for i := 0; i < 3; i++ {
+		wg.Add(3)
+
+		go func() {
+			defer wg.Done()
+
+			randomElement1, randomElement2 := getRandomElements(all)
+			higherHourElement := getHigherHourElement(randomElement1, randomElement2)
+
+			mu.Lock()
+			*arr1 = append(*arr1, higherHourElement)
+			mu.Unlock()
+		}()
+
+		go func() {
+			defer wg.Done()
+
+			randomElement1, randomElement2 := getRandomElements(all)
+			higherHourElement := getHigherHourElement(randomElement1, randomElement2)
+
+			mu.Lock()
+			*arr2 = append(*arr2, higherHourElement)
+			mu.Unlock()
+		}()
+
+		go func() {
+			defer wg.Done()
+
+			randomElement1, randomElement2 := getRandomElements(all)
+			higherHourElement := getHigherHourElement(randomElement1, randomElement2)
+
+			mu.Lock()
+			*arr3 = append(*arr3, higherHourElement)
+			mu.Unlock()
+		}()
+	}
+}
+
 // getHigherHourElement возвращает элемент с более высоким значением поля Hour из двух элементов.
 // Входные параметры:
 // - element1, element2: элементы типа dataPopulation.DTO.

@@ -3,10 +3,13 @@ package methods
 import (
 	"fmt"
 	"math/rand"
+	data "root/Core/data"
+	modules "root/Core/modules"
 	dataPopulation "root/Gen"
 	"sort"
+	pop "root/Population"
 	"sync"
-	modules "root/Core/modules"
+
 )
 
 /*
@@ -132,29 +135,20 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 	} 
 	
 	wg.Wait()
-
-
+	
 	if errorOccurred {
-		//! переделать чтобы оно присвало значение data.Group<num cours><name group><num group>
-		fmt.Println("ok")
-		fmt.Println("Родительские массивы:")
-		fmt.Println("Array 1:", arr1)
-		fmt.Println("Array 2:", arr2)
-		fmt.Println("Array 3:", arr3)
+		fmt.Println("Status: 'ok' ")
+		data.Group1wb1 = append(data.Group1wb1, arr1...)
+		data.Group1wb2 = append(data.Group1wb2, arr2...)
+		data.Group1wb3 = append(data.Group1wb3, arr3...)
 		result := modules.PermutationsCount(arr1, arr2, arr3)
-		fmt.Println(result)
-		
-		// fmt.Println("Дочерние массивы:")
-		// child1, child2, child3 := KPointCrossover(arr1, arr2, arr3, 2)
-		// fmt.Println("K-точечный кроссовер:")
-		// fmt.Println("Child 1:", child1)
-		// fmt.Println("Child 2:", child2)
-		// fmt.Println("Child 3:", child3)
+		if result == 6 {
 
-		// child1_1, child2_1, child3_1 := ThreePointCrossover(arr1, arr2, arr3)
-		// fmt.Println("Трёхточечный кроссовер:")
-		// fmt.Println("Child 1:", child1_1)
-		// fmt.Println("Child 2:", child2_1)
-		// fmt.Println("Child 3:", child3_1)
+			wg.Add(1)
+			go pop.AddRandomElementsAsyncIndex(&data.Group2wb1, &data.Group2wb2, &data.Group2wb3, 0,  &wg)
+			wg.Wait()
+			
+		}
+
 	}
 }
