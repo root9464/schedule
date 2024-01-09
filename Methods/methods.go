@@ -138,9 +138,9 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO) {
 	
 	if errorOccurred {
 		fmt.Println("Status: 'ok' ")
-		data.Group1wb1 = append(data.Group1wb1, arr1...)
-		data.Group1wb2 = append(data.Group1wb2, arr2...)
-		data.Group1wb3 = append(data.Group1wb3, arr3...)
+		data.Group1wb1 = arr1
+		data.Group1wb2 = arr2
+		data.Group1wb3 = arr3
 		result := modules.PermutationsCount(arr1, arr2, arr3)
 		if result == 6 {
 
