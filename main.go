@@ -2,6 +2,7 @@ package main
 
 import (
 	//"fmt"
+	"fmt"
 	dataPopulation "root/Gen"
 	pop "root/Population"
 	//"sync"
@@ -23,7 +24,6 @@ func main() {
 	// fmt.Print("Array 1:", arr1, " Длина:", len(arr1), "\n")
 	// fmt.Print("Array 2:", arr2, " Длина:", len(arr2), "\n")
 	// fmt.Print("Array 3:", arr3, " Длина:", len(arr3), "\n")
-	pop.FillArrays(dataPopulation.ArrObjs)
+	fmt.Println(pop.FillArrays(dataPopulation.ArrObjs))
 
-	
 }

@@ -1,10 +1,9 @@
 package population
 
 import (
-	"fmt"
 	"math/rand"
 	dataPopulation "root/Gen"
-	"sync"
+	//"sync"
 )
 
 
@@ -14,15 +13,18 @@ func generateRandomNumber() dataPopulation.DTO {
 	randomElement := dataPopulation.ArrObjs[0].Arr2[randomIndex]
 	return randomElement
 }
-func FillArrays(obj []dataPopulation.ArrayObject)  {
-	newArr := []dataPopulation.DTO{}
-    for i := 0; i < len(obj); i++{
+func FillArrays(obj []dataPopulation.ArrayObject) [][]dataPopulation.DTO {	
+	newArr := [][]dataPopulation.DTO{}
+    for i := 0; i < len(dataPopulation.ArrObjs); i++{
 		for j := 0; j < 3; j++{
 			obj[i].Arr1 = append(obj[i].Arr1,generateRandomNumber())
+			//newArr=append(newArr[i], obj[i].Arr1...)
 		}
-		newArr=append(newArr, obj[i].Arr1...)
 	}
-	fmt.Print(newArr)
+	for i := 0; i < len(dataPopulation.ArrObjs); i++{
+		newArr=append(newArr, dataPopulation.ArrObjs[i].Arr1)
+	}
+	return newArr
 
 }
 
