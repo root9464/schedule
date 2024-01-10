@@ -9,116 +9,387 @@ type Teacher struct{
 	Name string
 }
 
-var Subjects = []string{
-	"Математика", "Русский", "Информатика", "Физика", 
-	"История", "Литература", "МДК 08.02", "Архитектура АП",
-	"Общество", "ОБЖ", "Физра", "Англ. яз.", "УИПД", "География"}
-var Teachers = []string{
-	"Трушина И.Ю", "Пахилько О.Н", "Морозова М.В", "Имашева К.Б",
-	"Швиндина Н.А", "Зернова Е.А", "Имаев М.А", "Нургалиева И.Ю",
-	"Чебрукова Т.А", "Новиков Р.Е", "Чернышова Е.А", "Силищева О.И",
-	"Новикова М.Н"}
-var Data = struct{ //
+
+
+
+//1вб1	
+var Group_1vb1 = struct{ //
 	Math, Rus, Inf, Fiz, Hist, Lit, Mdk, Arch, Soc, Obg, Fizr, Angl, UIPD, Geo DTO
 }{
 	Math: DTO{
 		Teacher: Teacher{
-			Name: Teachers[0],
+			Name: "Трушина И.Ю",
 		},
-		Subject: Subjects[0],
+		Subject: "Математика",
 		Hour:    10,
 	},
 	Rus: DTO{
 		Teacher: Teacher{
-			Name: Teachers[1],
+			Name: "Пахилько О.Н",
 		},
-		Subject: Subjects[1],
+		Subject: "Русский",
 		Hour:    11,
 	},
 	Inf: DTO{
 		Teacher: Teacher{
-			Name: Teachers[2],
+			Name: "Морозова М.В",
 		},
-		Subject: Subjects[2],
+		Subject: "Информатика",
 		Hour:    12,
 	}, 
 	Fiz: DTO{
 		Teacher: Teacher{
-			Name: Teachers[3],
+			Name: "Имашева К.Б",
 		},
-		Subject: Subjects[3],
+		Subject: "Физика",
 		Hour:    13,
 	},
 	Hist: DTO{
 		Teacher: Teacher{
-			Name: Teachers[4],
+			Name: "Швиндина Н.А",
 		},
-		Subject: Subjects[4],
+		Subject: "История",
 		Hour:    14,
 	},
 	Lit: DTO{
 		Teacher: Teacher{
-			Name: Teachers[1],
+			Name: "Пахилько О.Н",
 		},
-		Subject: Subjects[5],
+		Subject: "Литература",
 		Hour:    15,
 	},
 	Mdk: DTO{
 		Teacher: Teacher{
-			Name: Teachers[5],
+			Name: "Зернова Е.А",
 		},
-		Subject: Subjects[6],
+		Subject: "МДК 08.02",
 		Hour:    16,
 	},
 	Arch: DTO{
 		Teacher: Teacher{
-			Name: Teachers[6],
+			Name: "Имаев М.А",
 		},
-		Subject: Subjects[7],
+		Subject: "Архитектура АП",
 		Hour:    17,
 	},
 	Soc: DTO{
 		Teacher: Teacher{
-			Name: Teachers[7],
+			Name: "Нургалиева И.Ю",
 		},
-		Subject: Subjects[8],
+		Subject: "Общество",
 		Hour:    18,
 	},
 	Obg: DTO{
 		Teacher: Teacher{
-			Name: Teachers[8],
+			Name: "Чебрукова Т.А",
 		},
-		Subject: Subjects[9],
+		Subject: "ОБЖ",
 		Hour:    19,
 	},
 	Fizr: DTO{
 		Teacher: Teacher{
-			Name: Teachers[9],
+			Name: "Новиков Р.Е",
 		},
-		Subject: Subjects[10],
+		Subject: "Физра",
 		Hour:    20,
 	},
 	Angl: DTO{
 		Teacher: Teacher{
-			Name: Teachers[10],
+			Name: "Чернышова Е.А",
 		},
-		Subject: Subjects[11],
+		Subject: "Англ. яз.",
 		Hour:    21,
 	},
 	UIPD: DTO{
 		Teacher: Teacher{
-			Name: Teachers[11],
+			Name: "УИПД",
 		},
-		Subject: Subjects[12],
+		Subject: "Силищева О.И",
 		Hour:    22,
 	},
 	Geo: DTO{
 		Teacher: Teacher{
-			Name: Teachers[12],
+			Name: "Новикова М.Н",
 		},
-		Subject: Subjects[13],
+		Subject: "География",
+		Hour:    23,
+	},
+}
+var Group_1vb1_ = []DTO{
+	Group_1vb1.Math,
+	Group_1vb1.Rus,
+	Group_1vb1.Inf,
+	Group_1vb1.Fiz,
+	Group_1vb1.Hist,
+	Group_1vb1.Lit,
+	Group_1vb1.Mdk,
+	Group_1vb1.Arch,
+	Group_1vb1.Soc,
+	Group_1vb1.Obg,
+	Group_1vb1.Fizr,
+	Group_1vb1.Angl,
+	Group_1vb1.UIPD,
+	Group_1vb1.Geo,
+}
+
+////////////////////////
+//1вб2
+var Group_1vb2 = struct{ //
+	Math, Rus, Inf, Fiz, Hist, Lit, Mdk, Arch, Soc, Obg, Fizr, Angl, UIPD, Geo DTO
+}{
+	Math: DTO{
+		Teacher: Teacher{
+			Name: "Трушина И.Ю",
+		},
+		Subject: "Математика",
+		Hour:    10,
+	},
+	Rus: DTO{
+		Teacher: Teacher{
+			Name: "Пахилько О.Н",
+		},
+		Subject: "Русский",
+		Hour:    11,
+	},
+	Inf: DTO{
+		Teacher: Teacher{
+			Name: "Морозова М.В",
+		},
+		Subject: "Информатика",
+		Hour:    12,
+	}, 
+	Fiz: DTO{
+		Teacher: Teacher{
+			Name: "Имашева К.Б",
+		},
+		Subject: "Физика",
+		Hour:    13,
+	},
+	Hist: DTO{
+		Teacher: Teacher{
+			Name: "Швиндина Н.А",
+		},
+		Subject: "История",
+		Hour:    14,
+	},
+	Lit: DTO{
+		Teacher: Teacher{
+			Name: "Пахилько О.Н",
+		},
+		Subject: "Литература",
+		Hour:    15,
+	},
+	Mdk: DTO{
+		Teacher: Teacher{
+			Name: "Зернова Е.А",
+		},
+		Subject: "МДК 08.02",
+		Hour:    16,
+	},
+	Arch: DTO{
+		Teacher: Teacher{
+			Name: "Имаев М.А",
+		},
+		Subject: "Архитектура АП",
+		Hour:    17,
+	},
+	Soc: DTO{
+		Teacher: Teacher{
+			Name: "Нургалиева И.Ю",
+		},
+		Subject: "Общество",
+		Hour:    18,
+	},
+	Obg: DTO{
+		Teacher: Teacher{
+			Name: "Чебрукова Т.А",
+		},
+		Subject: "ОБЖ",
+		Hour:    19,
+	},
+	Fizr: DTO{
+		Teacher: Teacher{
+			Name: "Новиков Р.Е",
+		},
+		Subject: "Физра",
+		Hour:    20,
+	},
+	Angl: DTO{
+		Teacher: Teacher{
+			Name: "Чернышова Е.А",
+		},
+		Subject: "Англ. яз.",
+		Hour:    21,
+	},
+	UIPD: DTO{
+		Teacher: Teacher{
+			Name: "УИПД",
+		},
+		Subject: "Силищева О.И",
+		Hour:    22,
+	},
+	Geo: DTO{
+		Teacher: Teacher{
+			Name: "Новикова М.Н",
+		},
+		Subject: "География",
 		Hour:    23,
 	},
 
 }
+var Group_1vb2_ = []DTO{
+	Group_1vb1.Math,
+	Group_1vb1.Rus,
+	Group_1vb1.Inf,
+	Group_1vb1.Fiz,
+	Group_1vb1.Hist,
+	Group_1vb1.Lit,
+	Group_1vb1.Mdk,
+	Group_1vb1.Arch,
+	Group_1vb1.Soc,
+	Group_1vb1.Obg,
+	Group_1vb1.Fizr,
+	Group_1vb1.Angl,
+	Group_1vb1.UIPD,
+	Group_1vb1.Geo,
+}
 
+//////////////////////////////
+//1вб3
+var Group_1vb3 = struct{ //
+	Math, Rus, Inf, Fiz, Hist, Lit, Mdk, Arch, Soc, Obg, Fizr, Angl, UIPD, Geo DTO
+}{
+	Math: DTO{
+		Teacher: Teacher{
+			Name: "Трушина И.Ю",
+		},
+		Subject: "Математика",
+		Hour:    10,
+	},
+	Rus: DTO{
+		Teacher: Teacher{
+			Name: "Пахилько О.Н",
+		},
+		Subject: "Русский",
+		Hour:    11,
+	},
+	Inf: DTO{
+		Teacher: Teacher{
+			Name: "Морозова М.В",
+		},
+		Subject: "Информатика",
+		Hour:    12,
+	}, 
+	Fiz: DTO{
+		Teacher: Teacher{
+			Name: "Имашева К.Б",
+		},
+		Subject: "Физика",
+		Hour:    13,
+	},
+	Hist: DTO{
+		Teacher: Teacher{
+			Name: "Швиндина Н.А",
+		},
+		Subject: "История",
+		Hour:    14,
+	},
+	Lit: DTO{
+		Teacher: Teacher{
+			Name: "Пахилько О.Н",
+		},
+		Subject: "Литература",
+		Hour:    15,
+	},
+	Mdk: DTO{
+		Teacher: Teacher{
+			Name: "Зернова Е.А",
+		},
+		Subject: "МДК 08.02",
+		Hour:    16,
+	},
+	Arch: DTO{
+		Teacher: Teacher{
+			Name: "Имаев М.А",
+		},
+		Subject: "Архитектура АП",
+		Hour:    17,
+	},
+	Soc: DTO{
+		Teacher: Teacher{
+			Name: "Нургалиева И.Ю",
+		},
+		Subject: "Общество",
+		Hour:    18,
+	},
+	Obg: DTO{
+		Teacher: Teacher{
+			Name: "Чебрукова Т.А",
+		},
+		Subject: "ОБЖ",
+		Hour:    19,
+	},
+	Fizr: DTO{
+		Teacher: Teacher{
+			Name: "Новиков Р.Е",
+		},
+		Subject: "Физра",
+		Hour:    20,
+	},
+	Angl: DTO{
+		Teacher: Teacher{
+			Name: "Чернышова Е.А",
+		},
+		Subject: "Англ. яз.",
+		Hour:    21,
+	},
+	UIPD: DTO{
+		Teacher: Teacher{
+			Name: "УИПД",
+		},
+		Subject: "Силищева О.И",
+		Hour:    22,
+	},
+	Geo: DTO{
+		Teacher: Teacher{
+			Name: "Новикова М.Н",
+		},
+		Subject: "География",
+		Hour:    23,
+	},
+
+}
+var Group_1vb3_ = []DTO{
+	Group_1vb1.Math,
+	Group_1vb1.Rus,
+	Group_1vb1.Inf,
+	Group_1vb1.Fiz,
+	Group_1vb1.Hist,
+	Group_1vb1.Lit,
+	Group_1vb1.Mdk,
+	Group_1vb1.Arch,
+	Group_1vb1.Soc,
+	Group_1vb1.Obg,
+	Group_1vb1.Fizr,
+	Group_1vb1.Angl,
+	Group_1vb1.UIPD,
+	Group_1vb1.Geo,
+}
+
+
+
+type ArrayObject struct { 
+    Arr1 []DTO 
+    Arr2 []DTO 
+}
+
+var group_1vb1 = []DTO{} // группа 1вб1
+var group_1vb2 = []DTO{} // группа 1вб2
+var group_1vb3 = []DTO{} // группа 1вб3
+
+
+var ArrObjs = []ArrayObject{
+	{Arr1: group_1vb1, Arr2: Group_1vb1_},
+	{Arr1: group_1vb2, Arr2: Group_1vb2_},
+	{Arr1: group_1vb3, Arr2: Group_1vb3_},
+}

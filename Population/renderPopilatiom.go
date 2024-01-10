@@ -1,67 +1,67 @@
 package population
 
 import (
+	"fmt"
 	"math/rand"
 	dataPopulation "root/Gen"
 	"sync"
 )
 
-var all = []dataPopulation.DTO{
-	dataPopulation.Data.Math,
-	dataPopulation.Data.Rus,
-	dataPopulation.Data.Inf,
-	dataPopulation.Data.Fiz,
-	dataPopulation.Data.Hist,
-	// dataPopulation.Data.Lit,
-	// dataPopulation.Data.Mdk,
-	// dataPopulation.Data.Arch,
-	// dataPopulation.Data.Soc,
-	// dataPopulation.Data.Obg,
-	// dataPopulation.Data.Fizr,
-	// dataPopulation.Data.Angl,
-	// dataPopulation.Data.UIPD,
-	// dataPopulation.Data.Geo,
-}
 
 
 func generateRandomNumber() dataPopulation.DTO {
-	randomIndex := rand.Intn(len(all))
-	randomElement := all[randomIndex]
+	randomIndex := rand.Intn(len(dataPopulation.ArrObjs[0].Arr2))
+	randomElement := dataPopulation.ArrObjs[0].Arr2[randomIndex]
 	return randomElement
 }
-func AddRandomElementsAsync(arr1, arr2, arr3 *[]dataPopulation.DTO, wg *sync.WaitGroup) {
-	defer wg.Done()
+func FillArrays(obj []dataPopulation.ArrayObject)  {
+	newArr := []dataPopulation.DTO{}
+    for i := 0; i < len(obj); i++{
+		for j := 0; j < 3; j++{
+			obj[i].Arr1 = append(obj[i].Arr1,generateRandomNumber())
+		}
+		newArr=append(newArr, obj[i].Arr1...)
+	}
+	fmt.Print(newArr)
 
-	mu := sync.Mutex{}
-
-	for i := 0; i < 3; i++ {
-		wg.Add(3)
-
-		go func() {
-			defer wg.Done()
-
-			mu.Lock()
-			*arr1 = append(*arr1, generateRandomNumber())
-			mu.Unlock()
-		}()
-
-		go func() {
-			defer wg.Done()
-
-			mu.Lock()
-			*arr2 = append(*arr2, generateRandomNumber())
-			mu.Unlock()
-		}()
-
-		go func() {
-			defer wg.Done()
-
-			mu.Lock()
-			*arr3 = append(*arr3, generateRandomNumber())
-			mu.Unlock()
-		}()
-	}	
 }
+
+
+
+// func AddRandomElementsAsync(arr1, arr2, arr3 *[]dataPopulation.DTO, wg *sync.WaitGroup) {
+// 	defer wg.Done()
+
+// 	mu := sync.Mutex{}
+
+// 	for i := 0; i < 3; i++ {
+// 		wg.Add(3)
+
+// 		go func() {
+// 			defer wg.Done()
+
+// 			mu.Lock()
+// 			*arr1 = append(*arr1, generateRandomNumber())
+// 			mu.Unlock()
+// 		}()
+
+// 		go func() {
+// 			defer wg.Done()
+
+// 			mu.Lock()
+// 			*arr2 = append(*arr2, generateRandomNumber())
+// 			mu.Unlock()
+// 		}()
+
+// 		go func() {
+// 			defer wg.Done()
+
+// 			mu.Lock()
+// 			*arr3 = append(*arr3, generateRandomNumber())
+// 			mu.Unlock()
+// 		}()
+// 	}	
+// }
+
 
 // func Render () {
 // 	arr1 := []po.DTO{}
