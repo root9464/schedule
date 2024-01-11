@@ -1,7 +1,7 @@
 package population
 
 import (
-	//"fmt"
+	"fmt"
 	"math/rand"
 	dataPopulation "root/Gen"
 	"sync"
@@ -93,12 +93,22 @@ func AddRandomElementsAsync(arr1, arr2, arr3 *[]dataPopulation.DTO, wg *sync.Wai
 
 func AddRandomElementsAsyncIndex(arr1, arr2, arr3 *[]dataPopulation.DTO, index int ,wg *sync.WaitGroup) {
 	defer wg.Done()
-
 	mu := sync.Mutex{}
+
 	*arr1 = make([]dataPopulation.DTO, index) // Добавляем элемент в 0ой индекс arr1
 	*arr2 = make([]dataPopulation.DTO, index) // Добавляем элемент в 0ой индекс arr2
 	*arr3 = make([]dataPopulation.DTO, index) // Добавляем элемент в 0ой индекс arr3
-
+	for i := 0; i < index; i++ {
+		(*arr1)[i].Teacher = dataPopulation.Teacher{
+			Name: fmt.Sprintf("пропуск%d", i+1),
+		}
+		(*arr3)[i].Teacher = dataPopulation.Teacher{
+			Name: fmt.Sprintf("пропуск%d", i+1),
+		}
+		(*arr2)[i].Teacher = dataPopulation.Teacher{
+			Name: fmt.Sprintf("пропуск%d", i+1),
+		}
+	}
 	for i := 0; i < 3; i++ {
 		wg.Add(3)
 

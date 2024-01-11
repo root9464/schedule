@@ -95,9 +95,9 @@ func ThreePointCrossover(parent1, parent2, parent3 []dataPopulation.DTO) ([]data
 // !(требуется легкая доработка)
 
 
-func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO, args ...*[]dataPopulation.DTO) {
+func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO, args ...*[]dataPopulation.DTO) bool {
 	var wg sync.WaitGroup
-	errorOccurred := true
+	errorOccurred := false // Произошла ошибка "ложь"
 
 	if len(arr1) != len(arr2) || len(arr1) != len(arr3) {
 		fmt.Println("Длины массивов не совпадают")
@@ -109,7 +109,7 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO, args ...*[]dataPopu
 		go func(i int) {
 			defer wg.Done()
 			if arr1[i].Subject == arr2[i].Subject || arr1[i].Subject == arr3[i].Subject || arr2[i].Subject == arr3[i].Subject {
-				errorOccurred = false
+				errorOccurred = true
 				return
 			}
 			// Проверка на одинаковые элементы внутри каждого массива
@@ -117,13 +117,13 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO, args ...*[]dataPopu
 				// sort.Slice(arr1, func(i, j int) bool { return arr1[i].Subject < arr1[j].Subject })
 				switch {
 					case arr1[i].Subject == arr1[j].Subject:
-						errorOccurred = false
+						errorOccurred = true
 						return
 					case arr2[i].Subject == arr2[j].Subject:
-						errorOccurred = false
+						errorOccurred = true
 						return
 					case arr3[i].Subject == arr3[j].Subject:
-						errorOccurred = false
+						errorOccurred = true
 						return
 				}
 			}	
@@ -132,10 +132,11 @@ func SelectArraysSync(arr1, arr2, arr3 []dataPopulation.DTO, args ...*[]dataPopu
 	
 	wg.Wait()
 	
-	if errorOccurred && len(args) == 3{
+	if !errorOccurred && len(args) == 3{
 		fmt.Println("Status: 'ok' ")
 		*args[0] = arr1
 		*args[1] = arr2
 		*args[2] = arr3
 	}
+	return errorOccurred
 }

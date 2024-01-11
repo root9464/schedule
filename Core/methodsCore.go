@@ -22,32 +22,25 @@ func singlecal(arr1, arr2, arr3 []dataPopulation.DTO, wg *sync.WaitGroup) {
 
 //множественный вызов
 func multiplecall(arr1, arr2, arr3 []dataPopulation.DTO, wg *sync.WaitGroup) {
+	errorOccurred := true
     for i:=0; i < 10000; i++ {
         wg.Add(1)
         go pop.AddRandomElementsAsync(&arr1, &arr2, &arr3, wg)
         wg.Wait()
 
-        methods.SelectArraysSync(arr1, arr2, arr3, &data.Group1wb1, &data.Group1wb2, &data.Group1wb3)
+        errorOccurred = methods.SelectArraysSync(arr1, arr2, arr3, &data.Group1wb1, &data.Group1wb2, &data.Group1wb3)
         
         arr1, arr2, arr3 = []dataPopulation.DTO{}, []dataPopulation.DTO{}, []dataPopulation.DTO{}
-        modules.SecondIndex(arr1, arr2, arr3)
-    }
-    errCh, flag := modules.CompareArrays(data.Group1wb1, data.Group1wb2, data.Group1wb3, data.Group2wb1, data.Group2wb2, data.Group2wb3)
-    wg.Add(1)
-
-	go func() {
-		defer wg.Done()
-
-		for err := range errCh {
-			fmt.Println(err)
+        if errorOccurred{
+			modules.SecondIndex(arr1, arr2, arr3, wg)
 		}
-	}()
+    }
 
-	wg.Wait()
-    Log()
-	fmt.Println("Все массивы проверены")
-    fmt.Println(flag)
-
+	_ , errorOccurred = modules.SliceCompare(data.Group1wb1, data.Group1wb2, data.Group1wb3, data.Group2wb1, data.Group2wb2, data.Group2wb3)
+	
+	if !errorOccurred {
+		Log()
+	}
 }
 
 func Log(){

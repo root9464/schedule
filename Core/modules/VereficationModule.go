@@ -1,10 +1,12 @@
 package modules
 
 import (
+	//"errors"
 	"errors"
 	"fmt"
+	"reflect"
 	dataPopulation "root/Gen"
-	//"sync"
+	"sync"
 )
 
 func countmodule(arr ...[]dataPopulation.DTO) int {
@@ -29,18 +31,6 @@ func Log(arrays ...[]dataPopulation.DTO) {
     }
 }
 
-
-func maxlen(arrays ...[]dataPopulation.DTO) int {
-	max := 0
-	for i := 0; i < len(arrays); i++ {
-		if len(arrays[i]) > max {
-			max = len(arrays[i])
-		}
-	}
-	return max
-
-}
-
 func minlen(arrays ...[]dataPopulation.DTO) int {
 	if len(arrays) == 0 {
 		return 0
@@ -55,20 +45,57 @@ func minlen(arrays ...[]dataPopulation.DTO) int {
 
 	return minLength
 }
-func CompareArrays(arrays ...[]dataPopulation.DTO) (<-chan error, bool) {
-	errCh := make(chan error)
-	flag := false
-	go func() {
-		defer close(errCh)
+func compareMapValues(m map[string][]dataPopulation.DTO) error {
+    var wg sync.WaitGroup
+    errCh := make(chan error, len(m))
 
-		// Находим массив с максимальной длиной
-		maxLength := maxlen(arrays...)
-		minLength := minlen(arrays...)
-		fmt.Println("Максимальная длина", maxLength)
+    for _, values := range m {
+        wg.Add(1)
+        go func(v []dataPopulation.DTO) {
+            defer wg.Done()
+            for i := 0; i < len(v)-1; i++ {
+                if reflect.DeepEqual(v[i].Teacher, v[i+1].Teacher) {
+                    errCh <- errors.New("ошибка: содержание ключа равно другому содержанию ключа")
+                    return
+                }
+            }
+        }(values)
+		
+    }
 
-		// условие проверки и готово
-	}()
+    go func() {
+        wg.Wait()
+        close(errCh)
+    }()
 
+    for err := range errCh {
+        if err != nil {
+            return err
+        }
+    }
 
-	return errCh, flag
+    return nil
+}
+
+func SliceCompare(arrays ...[]dataPopulation.DTO) (map[string][]dataPopulation.DTO, bool) {
+    minLength := minlen(arrays...)
+    state := make(map[string][]dataPopulation.DTO, 3)
+	errorOccurred := false // Произошла ошибка "ложь"
+
+    for i := range arrays {
+        arrays[i] = arrays[i][:minLength]
+        subject := fmt.Sprintf("Group%d", i+1)
+        state[subject] = arrays[i]
+    }
+    err := compareMapValues(state)
+    if err != nil {
+        fmt.Println(err)
+		errorOccurred = false
+		
+    } else {
+        fmt.Println("Сравнение успешно выполнено")
+		errorOccurred = true
+		return state, errorOccurred
+    }
+    return map[string][]dataPopulation.DTO{}, errorOccurred
 }
