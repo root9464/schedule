@@ -1,8 +1,9 @@
 package gen
 
 type DTO struct {
+	Id      int `gorm:"primarykey"`
 	Teacher
-	Subject string
+	Subject string 
 	Hour    int16
 }
 type Teacher struct{
@@ -22,6 +23,7 @@ var Data = struct{ //
 	Math, Rus, Inf, Fiz, Hist, Lit, Mdk, Arch, Soc, Obg, Fizr, Angl, UIPD, Geo DTO
 }{
 	Math: DTO{
+		Id: 1,
 		Teacher: Teacher{
 			Name: Teachers[0],
 		},
@@ -29,6 +31,7 @@ var Data = struct{ //
 		Hour:    10,
 	},
 	Rus: DTO{
+		Id: 2,
 		Teacher: Teacher{
 			Name: Teachers[1],
 		},
@@ -36,6 +39,7 @@ var Data = struct{ //
 		Hour:    11,
 	},
 	Inf: DTO{
+		Id: 3,
 		Teacher: Teacher{
 			Name: Teachers[2],
 		},
@@ -43,6 +47,7 @@ var Data = struct{ //
 		Hour:    12,
 	}, 
 	Fiz: DTO{
+		Id: 4,
 		Teacher: Teacher{
 			Name: Teachers[3],
 		},
@@ -50,6 +55,7 @@ var Data = struct{ //
 		Hour:    13,
 	},
 	Hist: DTO{
+		Id: 5,
 		Teacher: Teacher{
 			Name: Teachers[4],
 		},
@@ -57,6 +63,7 @@ var Data = struct{ //
 		Hour:    14,
 	},
 	Lit: DTO{
+		Id: 6,
 		Teacher: Teacher{
 			Name: Teachers[1],
 		},
@@ -64,6 +71,7 @@ var Data = struct{ //
 		Hour:    15,
 	},
 	Mdk: DTO{
+		Id: 7,
 		Teacher: Teacher{
 			Name: Teachers[5],
 		},
@@ -71,6 +79,7 @@ var Data = struct{ //
 		Hour:    16,
 	},
 	Arch: DTO{
+		Id: 8,
 		Teacher: Teacher{
 			Name: Teachers[6],
 		},
@@ -78,6 +87,7 @@ var Data = struct{ //
 		Hour:    17,
 	},
 	Soc: DTO{
+		Id: 9,
 		Teacher: Teacher{
 			Name: Teachers[7],
 		},
@@ -85,6 +95,7 @@ var Data = struct{ //
 		Hour:    18,
 	},
 	Obg: DTO{
+		Id: 10,
 		Teacher: Teacher{
 			Name: Teachers[8],
 		},
@@ -92,6 +103,7 @@ var Data = struct{ //
 		Hour:    19,
 	},
 	Fizr: DTO{
+		Id: 11,
 		Teacher: Teacher{
 			Name: Teachers[9],
 		},
@@ -99,6 +111,7 @@ var Data = struct{ //
 		Hour:    20,
 	},
 	Angl: DTO{
+		Id: 12,
 		Teacher: Teacher{
 			Name: Teachers[10],
 		},
@@ -106,6 +119,7 @@ var Data = struct{ //
 		Hour:    21,
 	},
 	UIPD: DTO{
+		Id: 13,
 		Teacher: Teacher{
 			Name: Teachers[11],
 		},
@@ -113,6 +127,7 @@ var Data = struct{ //
 		Hour:    22,
 	},
 	Geo: DTO{
+		Id: 14,
 		Teacher: Teacher{
 			Name: Teachers[12],
 		},
